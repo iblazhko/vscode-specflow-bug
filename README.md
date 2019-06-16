@@ -1,5 +1,7 @@
 # VSCode C# Extension SpecFlow Problem
 
+[OmniSharp/omnisharp-vscode#3120](https://github.com/OmniSharp/omnisharp-vscode/issues/3120)
+
 ## Description
 
 This repository demonstrates problem with VisualStudio C# extension
