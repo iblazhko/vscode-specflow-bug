@@ -63,3 +63,21 @@ Microsoft.Build.Exceptions.InvalidProjectFileException: The imported project "/h
   at (wrapper delegate-invoke) System.Func`1[System.ValueTuple`3[OmniSharp.MSBuild.ProjectFile.ProjectFileInfo,System.Collections.Immutable.ImmutableArray`1[OmniSharp.MSBuild.Logging.MSBuildDiagnostic],OmniSharp.MSBuild.Notification.ProjectLoadedEventArgs]].invoke_TResult()
   at OmniSharp.MSBuild.ProjectManager.LoadOrReloadProject (System.String projectFilePath, System.Func`1[TResult] loader) [0x0001b] in <598756bbad7c4a61bb212e3681e5d1da>:0
   ```
+
+## Analysis
+
+The problem is that OmniSharp expects the file
+
+```txt
+~/.nuget/packages/specflow.tools.msbuild.generation/3.0.220/build/CPS/BuildSystem/CpsExtension.DesignTime.targets
+```
+
+but the file is in fact at
+
+```txt
+~/.nuget/packages/specflow.tools.msbuild.generation/3.0.220/build/CPS/Buildsystem/CpsExtension.DesignTime.targets
+```
+
+Notice `BuildSystem` vs `Buildsystem`.
+
+Probably SpecFlow should follow conventions and use `BuildSystem`, but dotnet CLI can handle this `Buildsystem` path just fine.
